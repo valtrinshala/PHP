@@ -20,16 +20,17 @@
                     $wire.calculateResult(this.input).then(() => {
                         this.result = $wire.result;
                     });
-                } 
+                }
             } else if (key === 'Escape') {
                 this.result = '';
                 this.input = '';
             }
         },
-        validateInput(input) {
-            const invalidPatterns = ['++', '--', '**', '//', '()', '((', '+-', '-+', '*+', '+*', '/+', '+/', '*)', '(*', '(/', '(/'];
+       validateInput(input) {
+          const invalidPatterns = ['++', '--', '**', '//', '()', '((', '+-', '-+', '*+', '+*', '/+', '+/', '*)', '(*', '(/', '(/'];
             this.incorrectInput = invalidPatterns.some(pattern => input.includes(pattern));
-        }
+          return !this.incorrectInput;
+}
     }" @keydown.window="handleKeydown"
      x-cloak
 >
@@ -42,9 +43,16 @@
                     Incorrect input
                 </div>
             </div>
-            <div class="w-full h-40 bg-gradient-to-b from-gray-800 to-gray-700 flex items-end text-right">
-                <div class="w-full py-5 px-6 text-6xl text-white font-thin" x-text="result ? result : input"></div>
+            <!-- Display Result Above -->
+            <div class="w-full h-20 bg-gradient-to-b from-gray-800 to-gray-700 flex items-end text-right">
+                <div class="w-full py-5 px-6 text-6xl text-white font-thin" x-text="result"></div>
             </div>
+
+            <!-- Display Input Below -->
+            <div class="w-full h-20 bg-gradient-to-b from-gray-700 to-gray-600 flex items-end text-right">
+                <div class="w-full py-3 px-6 text-4xl text-white font-thin" x-text="input"></div>
+            </div>
+
             <div class="w-full bg-gradient-to-b from-indigo-400 to-indigo-500">
                 <div class="flex w-full">
                     <div class="w-1/4 border-r border-b border-indigo-400">
