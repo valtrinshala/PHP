@@ -1,7 +1,7 @@
 <div x-data="{
         input: '',
         result: @entangle('result'),
-        incorrectInput: false, // Add a new reactive property for incorrect input state
+        incorrectInput: false,
         handleKeydown(event) {
             const key = event.key;
             if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/'].includes(key)) {
@@ -14,7 +14,10 @@
                 }
             } else if (key === ')') {
                 this.input += ')';
-            } else if (key === 'Enter') {
+            } else if (key === 'Backspace') {
+            this.input = this.input.slice(0, -1);
+           }
+           else if (key === 'Enter') {
                 if (this.validateInput(this.input))
                  {
                     $wire.calculateResult(this.input).then(() => {
@@ -50,13 +53,13 @@
 
             <!-- Display Input Below -->
             <div class="w-full h-20 bg-gradient-to-b from-gray-700 to-gray-600 flex items-end text-right">
-                <div class="w-full py-3 px-6 text-4xl text-white font-thin" x-text="input"></div>
+                <div class="w-full py-3 px-6 text-4xl text-white font-thin" x-text="input ? input : 0"></div>
             </div>
 
             <div class="w-full bg-gradient-to-b from-indigo-400 to-indigo-500">
                 <div class="flex w-full">
                     <div class="w-1/4 border-r border-b border-indigo-400">
-                        <button @click="result = ''; input = ''"
+                        <button @click="result = ''"
                                 class="w-full h-16 outline-none focus:outline-none hover:bg-indigo-700 hover:bg-opacity-20 text-white text-opacity-50 text-xl font-light">
                             C
                         </button>
