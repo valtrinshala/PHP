@@ -23,8 +23,8 @@ class Calculator extends Component
     public function calculateResult($value)
     {
         // Check if the input contain   s any malicious code (for security)
-        if (preg_match('/[\'";`]/', $value)) {
-            return "Invalid input.";
+        if (preg_match('/\+\+|--|\*\*|\/\/|\(\(|\+-|-+|\*\+|\+*|\/\+|\+\/|\*\)|\(\*|\/\(|\(\//', $value)) {
+            return $this->result = 'Incorrect input';
         }
 
         // Use eval() to calculate the result

@@ -1,19 +1,47 @@
-<div x-data="{ input: '', result: @entangle('result'), handleKeydown(event) {
-        const key = event.key;
-        if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/','(',')'].includes(key)) {
-            this.input += key;
-        } else if (key === 'Enter') {
-            $wire.calculateResult(this.input).then(() => { this.result = $wire.result });
-        } else if (key === 'Escape') {
-            this.result = '';
-            this.input = '';
+<div x-data="{
+        input: '',
+        result: @entangle('result'),
+        incorrectInput: false, // Add a new reactive property for incorrect input state
+        handleKeydown(event) {
+            const key = event.key;
+            if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/'].includes(key)) {
+                this.input += key;
+            } else if (key === '(') {
+                if (this.input && !isNaN(this.input.slice(-1))) {
+                    this.input += '*(';
+                } else {
+                    this.input += '(';
+                }
+            } else if (key === ')') {
+                this.input += ')';
+            } else if (key === 'Enter') {
+                if (this.validateInput(this.input))
+                 {
+                    $wire.calculateResult(this.input).then(() => {
+                        this.result = $wire.result;
+                    });
+                } 
+            } else if (key === 'Escape') {
+                this.result = '';
+                this.input = '';
+            }
+        },
+        validateInput(input) {
+            const invalidPatterns = ['++', '--', '**', '//', '()', '((', '+-', '-+', '*+', '+*', '/+', '+/', '*)', '(*', '(/', '(/'];
+            this.incorrectInput = invalidPatterns.some(pattern => input.includes(pattern));
         }
-    }}"
-     @keydown.window="handleKeydown"
+    }" @keydown.window="handleKeydown"
+     x-cloak
 >
     <div class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center px-5 py-5">
         <div class="w-full mx-auto rounded-xl bg-gray-100 shadow-xl text-gray-800 relative overflow-hidden"
              style="max-width:300px">
+            <div class="w-full">
+                <!-- Conditional badge display -->
+                <div x-show="incorrectInput" class="badge bg-red-500 text-white p-2 rounded">
+                    Incorrect input
+                </div>
+            </div>
             <div class="w-full h-40 bg-gradient-to-b from-gray-800 to-gray-700 flex items-end text-right">
                 <div class="w-full py-5 px-6 text-6xl text-white font-thin" x-text="result ? result : input"></div>
             </div>
@@ -117,7 +145,7 @@
                     <div class="w-2/4 border-r border-indigo-400"
                     >
                         <button class="w-full h-16 outline-none focus:outline-none bg-indigo-700 bg-opacity-30 hover:bg-opacity-40 text-white text-xl font-light"
-                                x-on:click="$wire.calculateResult(input).then(() => { result = $wire.result })">
+                                @click="$wire.calculateResult(input).then(() => { result = $wire.result })">
                             =
                         </button>
                     </div>
