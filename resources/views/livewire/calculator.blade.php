@@ -165,4 +165,5 @@
         </div>
     </div>
 
+    <livewire:history/>
 </div>

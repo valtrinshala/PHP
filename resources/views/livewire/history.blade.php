@@ -1,3 +1,5 @@
 <div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
+    <x:modal wire:model="open" maxWidth="2xl">
+        ...
+    </x:modal>
 </div>
