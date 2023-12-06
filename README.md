@@ -10,6 +10,9 @@ Requirements
 - Laravel version 8.x
 - Livewire
 - Alpine.js
+
+
+
 Installation
 Cloning the Repository
 To clone the repository, run the following command:
