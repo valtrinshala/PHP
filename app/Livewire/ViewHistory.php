@@ -18,4 +18,12 @@ class ViewHistory extends Component
     }
 
 
+    public function removeHistory($historyId): void
+    {
+        $history = History::find($historyId);
+        if ($history) {
+            $history->delete();
+        }
+    }
+
 }
