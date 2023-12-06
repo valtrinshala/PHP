@@ -49,7 +49,7 @@
             <div class="flex w-full h-20 bg-gradient-to-b  pr-2 from-gray-800 to-gray-700  items-center text-right">
                 <div class="w-full py-5 px-6 text-6xl text-white font-thin" x-text="result"></div>
                 <button type="button"
-                        wire:click="toggleHistoryModal">
+                        wire:click="showHistoryModal">
                     <x:icons.archive-box class="w-6 h-6 text-indigo-400 cursor-pointer"
                     />
                 </button>

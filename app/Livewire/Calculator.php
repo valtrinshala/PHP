@@ -40,7 +40,7 @@ class Calculator extends Component
         return $this->result = $result;
     }
 
-    public function toggleHistoryModal(): bool
+    public function showHistoryModal(): bool
     {
         return $this->showHistoryModal = !$this->showHistoryModal;
 
