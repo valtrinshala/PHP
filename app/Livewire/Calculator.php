@@ -9,6 +9,9 @@ class Calculator extends Component
 {
     public string $result = '';
 
+    public bool $showHistoryModal = false;
+
+
     public function mount()
     {
         $this->result = '';
@@ -37,5 +40,10 @@ class Calculator extends Component
         return $this->result = $result;
     }
 
+    public function toggleHistoryModal(): bool
+    {
+        return $this->showHistoryModal = !$this->showHistoryModal;
+
+    }
 
 }

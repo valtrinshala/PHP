@@ -12,10 +12,7 @@ class History extends Model
 
     protected $fillable = ['calculation', 'result'];
 
-    public function getHistory(): Collection
-    {
-        return History::all();
-    }
+
 
     /**
      * Create a new history record.

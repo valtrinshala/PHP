@@ -41,17 +41,19 @@
         <div class="w-full mx-auto rounded-xl bg-gray-100 shadow-xl text-gray-800 relative overflow-hidden"
              style="max-width:300px">
             <div class="w-full">
-                <!-- Conditional badge display -->
-                <div x-show="incorrectInput" class="badge bg-red-500 text-white p-2 rounded">
+                <div x-show="incorrectInput"
+                     class="badge bg-red-500 text-white p-2 rounded">
                     Incorrect input
                 </div>
             </div>
-            <!-- Display Result Above -->
-            <div class="w-full h-20 bg-gradient-to-b from-gray-800 to-gray-700 flex items-end text-right">
+            <div class="flex w-full h-20 bg-gradient-to-b  pr-2 from-gray-800 to-gray-700  items-center text-right">
                 <div class="w-full py-5 px-6 text-6xl text-white font-thin" x-text="result"></div>
+                <button type="button"
+                        wire:click="toggleHistoryModal">
+                    <x:icons.archive-box class="w-6 h-6 text-indigo-400 cursor-pointer"
+                    />
+                </button>
             </div>
-
-            <!-- Display Input Below -->
             <div class="w-full h-20 bg-gradient-to-b from-gray-700 to-gray-600 flex items-end text-right">
                 <div class="w-full py-3 px-6 text-4xl text-white font-thin" x-text="input ? input : 0"></div>
             </div>
@@ -59,7 +61,7 @@
             <div class="w-full bg-gradient-to-b from-indigo-400 to-indigo-500">
                 <div class="flex w-full">
                     <div class="w-1/4 border-r border-b border-indigo-400">
-                        <button @click="result = ''"
+                        <button @click="result = ''; input = ''"
                                 class="w-full h-16 outline-none focus:outline-none hover:bg-indigo-700 hover:bg-opacity-20 text-white text-opacity-50 text-xl font-light">
                             C
                         </button>
@@ -163,7 +165,9 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <livewire:history/>
+    </div>
+    @if($showHistoryModal)
+        <livewire:view-history :showHistoryModal="$showHistoryModal"/>
+    @endif
 </div>
